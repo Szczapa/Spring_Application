@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class TodoController {
         return "todo/view";
     }
 
-    @GetMapping("/todo/add")
+    @PostMapping("/todo/add")
     public String todoAdd() {
         Todo newTodo = new Todo(todoService.getNextId(), "New Todo", "New Todo Description", false);
         todoService.add(newTodo);
