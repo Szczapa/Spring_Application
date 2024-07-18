@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View</title>
+</head>
+<body>
+    <h1>Todo View</h1>
+    <p th:if="${todo == null}"> Il n' y a rien ici</p>
+    <div th:unless="${todo == null}">
+        <p th:text="${todo.title}"></p>
+        <p th:text="${todo.description}"></p>
+        <p th:text="${todo.done}"></p>
+    </div>
+
+</body>
+</html>
