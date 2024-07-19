@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <span th:replace="~{home :: bootstrapImports}"></span>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" th:href="@{/}">Home</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/products}">Products</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container mt-3">
+    <h1>Products</h1>
+    <p th:if="${products.isEmpty()}">No products available.</p>
+    <table class="table" th:unless="${products.isEmpty()}">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td><a th:href="@{/product/{id}(id=${product.productId})}" th:text="${product.productId}"></a></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

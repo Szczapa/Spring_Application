@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Detail</title>
+    <span th:replace="~{home :: bootstrapImports}"></span>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" th:href="@{/}">Home</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/products}">Products</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${product.name}">Product Name</h5>
+                <h6 class="card-subtitle mb-2 text-muted" th:text="${product.price}">Product Price</h6>
+                <p class="card-text" th:text="${product.category}">Product Category</p>
+            </div>
+        </div>
+    </div>
+</body>
