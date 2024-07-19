@@ -48,8 +48,6 @@ public class ProductController {
         System.out.println(productId);
         Product product = productService.getProduct(productId);
         System.out.println(product);
-//        System.out.println(product.getProductId());
-//        System.out.println(product.getName());
         model.addAttribute("product", product);
         return "product";
     }
