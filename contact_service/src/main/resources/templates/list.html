@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<title>List</title>
+</head>
+<body>
+<nav th:href="@{/}"> Home Page</nav>
+
+<div>
+    <ul th:if="${contacts != null}">
+        <li th:each="c : ${contacts}">
+
+            <a th:href="@{/detail/{id}(id=${c.id})}">
+                <span th:text="${c.name}"></span>
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

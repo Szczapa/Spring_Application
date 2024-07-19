@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail</title>
+</head>
+<body>
+<nav>
+    <a th:href="@{/}"> Home Page</a>
+</nav>
+
+<div>
+    <h1 th:text="${contact.name}"></h1>
+    <p th:text="${contact.id}"></p>
+    <p th:text="${contact.age}"></p>
+    <p th:text="${contact.phone}"></p>
+</div>
+<a th:href="@{/list}"> Retour à la liste </a>
+</body>
+</html>
