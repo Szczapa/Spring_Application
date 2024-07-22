@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <html lang="fr" xmlns:th="http://www.thymeleaf.org"></html>
+    <meta charset="UTF-8">
+    <title>Form</title>
+    <span th:replace="~{home :: bootstrapImports}"></span>
+</head>
+<body>
+<div th:replace="~{home :: navBar}"></div>
+<h1>Student Form</h1>
+<div class="container">
+
+    <form class="form-group" method="post" th:action="@{/student/add}" th:object="${student}">
+        <input hidden th:field="*{studentId}">
+        <div class="form-group my-2">
+            <label for="studentFirstName">Prenom du Contact</label>
+            <input id="studentFirstName" class="form-control" th:field="*{studentFirstName}" type="text" required>
+        </div>
+        <div class="form-group my-2">
+            <label for="studentLastName">Nom du Contact</label>
+            <input id="studentLastName" class="form-control" th:field="*{studentLastName}" type="text" required>
+        </div>
+        <div class="form-group my-2">
+            <label for="studentEmail">Email du Contact</label>
+            <input id="studentEmail" class="form-control" th:field="*{studentEmail}" type="text" required>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>

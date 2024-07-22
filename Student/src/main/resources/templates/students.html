@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+    <span th:replace="~{home :: bootstrapImports}"></span>
+</head>
+<body>
+<div th:replace="~{home :: navBar}"></div>
+<h1>Students List</h1>
+<div class="container">
+    <p th:if="${students.isEmpty()}">No students in this school</p>
+    <table class="table" th:unless="${students.isEmpty()}">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.studentId}"></td>
+            <td th:text="${student.studentFirstName}"></td>
+            <td th:text="${student.studentLastName}"></td>
+            <td th:text="${student.studentEmail}"></td>
+            <td> <a class="btn btn-primary" th:href="@{/student/{id}(id=${student.studentId})}"> detail</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <html lang="fr" xmlns:th="http://www.thymeleaf.org"></html>
+    <meta charset="UTF-8">
+    <title>Student</title>
+    <span th:replace="~{home :: bootstrapImports}"></span>
+</head>
+<body>
+<div th:replace="~{home :: navBar}"></div>
+<h1>Student</h1>
+<div class="container">
+    <p th:if="${student == null}">Student not found</p>
+    <div th:if="${student != null}">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${student.studentFirstName} + ' ' + ${student.studentLastName}"></h5>
+                <p class="card-text" th:text="${student.studentEmail}"></p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
