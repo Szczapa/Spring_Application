@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <html lang="fr" xmlns:th="http://www.thymeleaf.org"></html>
     <meta charset="UTF-8">
     <title>Student</title>
     <span th:replace="~{home :: bootstrapImports}"></span>
 </head>
 <body>
 <div th:replace="~{home :: navBar}"></div>
-<h1>Student</h1>
-<div class="container">
-    <p th:if="${student == null}">Student not found</p>
+<div class="container mt-5">
+    <h1 class="mb-4">Student</h1>
+    <div th:if="${student == null}">
+        <div class="alert alert-warning" role="alert">
+            Student not found
+        </div>
+    </div>
     <div th:if="${student != null}">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
@@ -20,5 +23,6 @@
         </div>
     </div>
 </div>
+<span th:replace="~{home :: bootstrapScripts}"></span>
 </body>
 </html>

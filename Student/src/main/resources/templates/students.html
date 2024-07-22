@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Students</title>
@@ -7,29 +7,38 @@
 </head>
 <body>
 <div th:replace="~{home :: navBar}"></div>
-<h1>Students List</h1>
-<div class="container">
-    <p th:if="${students.isEmpty()}">No students in this school</p>
-    <table class="table" th:unless="${students.isEmpty()}">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="student : ${students}">
-            <td th:text="${student.studentId}"></td>
-            <td th:text="${student.studentFirstName}"></td>
-            <td th:text="${student.studentLastName}"></td>
-            <td th:text="${student.studentEmail}"></td>
-            <td> <a class="btn btn-primary" th:href="@{/student/{id}(id=${student.studentId})}"> detail</a></td>
-        </tr>
-        </tbody>
-    </table>
+<div class="container mt-5">
+    <h1 class="mb-4">Students List</h1>
+    <div th:if="${students.isEmpty()}">
+        <div class="alert alert-warning" role="alert">
+            No students in this school
+        </div>
+    </div>
+    <div th:unless="${students.isEmpty()}">
+        <table class="table table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${students}">
+                <th scope="row" th:text="${student.studentId}"></th>
+                <td th:text="${student.studentFirstName}"></td>
+                <td th:text="${student.studentLastName}"></td>
+                <td th:text="${student.studentEmail}"></td>
+                <td>
+                    <a class="btn btn-primary btn-sm" th:href="@{/student/{id}(id=${student.studentId})}">Detail</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+<span th:replace="~{home :: bootstrapScripts}"></span>
 </body>
 </html>
