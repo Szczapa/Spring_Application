@@ -63,4 +63,12 @@ public class StudentService {
         student.setStudentId(students.size() + 1);
         students.put(student.getStudentId(), student);
     }
+
+    public void updateStudent(int id, Student student) {
+        students.put(id, student);
+    }
+
+    public void deleteStudent(int id) {
+        students.remove(id);
+    }
 }

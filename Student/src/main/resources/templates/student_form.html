@@ -9,23 +9,25 @@
 <div th:replace="~{home :: navBar}"></div>
 <div class="container mt-5">
     <h1 class="mb-4">Student Form</h1>
-    <form method="post" th:action="@{/student/add}" th:object="${student}">
+
+    <form method="post"
+          th:action="${student.studentId == 0} ? @{/student/add} : @{'/student/edit/' + ${student.studentId}}"
+          th:object="${student}">
         <input type="hidden" th:field="*{studentId}">
         <div class="mb-3">
-            <label for="studentFirstName" class="form-label">Prénom du Contact</label>
+            <label for="studentFirstName" class="form-label">First Name</label>
             <input id="studentFirstName" class="form-control" th:field="*{studentFirstName}" type="text" required>
         </div>
         <div class="mb-3">
-            <label for="studentLastName" class="form-label">Nom du Contact</label>
+            <label for="studentLastName" class="form-label">Last Name</label>
             <input id="studentLastName" class="form-control" th:field="*{studentLastName}" type="text" required>
         </div>
         <div class="mb-3">
-            <label for="studentEmail" class="form-label">Email du Contact</label>
+            <label for="studentEmail" class="form-label">Email</label>
             <input id="studentEmail" class="form-control" th:field="*{studentEmail}" type="email" required>
         </div>
         <button class="btn btn-primary">Submit</button>
     </form>
 </div>
-<span th:replace="~{home :: bootstrapScripts}"></span>
 </body>
 </html>
