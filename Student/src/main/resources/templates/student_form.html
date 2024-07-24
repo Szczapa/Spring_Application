@@ -17,14 +17,17 @@
         <div class="mb-3">
             <label for="studentFirstName" class="form-label">First Name</label>
             <input id="studentFirstName" class="form-control" th:field="*{studentFirstName}" type="text" required>
+            <span th:if="${#fields.hasErrors('studentFirstName')}" th:errors="*{studentFirstName}"></span>
         </div>
         <div class="mb-3">
             <label for="studentLastName" class="form-label">Last Name</label>
             <input id="studentLastName" class="form-control" th:field="*{studentLastName}" type="text" required>
+            <span th:if="${#fields.hasErrors('studentLastName')}" th:errors="*{studentLastName}"></span>
         </div>
         <div class="mb-3">
             <label for="studentEmail" class="form-label">Email</label>
             <input id="studentEmail" class="form-control" th:field="*{studentEmail}" type="email" required>
+            <span th:if="${#fields.hasErrors('studentEmail')}" th:errors="*{studentEmail}"></span>
         </div>
         <button class="btn btn-primary">Submit</button>
     </form>
