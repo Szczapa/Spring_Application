@@ -5,28 +5,24 @@ import org.example.recette.model.Ingredients;
 import org.example.recette.model.Recette;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class RecetteService {
+public class RecetteService implements IRecetteService {
     private final Map<Integer, Recette> recettes;
 
     public RecetteService() {
         recettes = new HashMap<>();
     }
 
-    public Recette getRecette(int id) {
-        return recettes.values().stream()
-                .filter(r -> r.getRecetteId() == id)
-                .findFirst()
-                .orElse(null);
+
+    @Override
+    public Optional<Recette> getRecette(int id) {
+        return Optional.ofNullable(recettes.get(id));
     }
 
-    public List<Recette> getRecettes(String nom) {
+    public List<Recette> getAllRecettes(String nom) {
         if (nom.isEmpty()) {
             return List.copyOf(recettes.values());
         }

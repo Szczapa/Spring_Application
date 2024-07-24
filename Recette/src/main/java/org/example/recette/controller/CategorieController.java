@@ -1,9 +1,8 @@
 package org.example.recette.controller;
 
+import jakarta.validation.Valid;
 import org.example.recette.model.Categorie;
 import org.example.recette.service.CategorieService;
-
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,13 +22,13 @@ public class CategorieController {
 
     @GetMapping("/categories")
     public String categories(Model model) {
-        model.addAttribute("categories", categorieService.getCategories());
+        model.addAttribute("categories", categorieService.getAllCategories());
         return "categorie_template/categories";
     }
 
     @GetMapping("/categorie/{id}")
     public String categorie(@PathVariable("id") int categorieId, Model model) {
-        model.addAttribute("categorie", categorieService.getCategorie(categorieId));
+        model.addAttribute("categorie", categorieService.getCategorie(categorieId).orElse(null));
         return "categorie_template/categorie";
     }
 
@@ -40,7 +39,7 @@ public class CategorieController {
     }
 
     @PostMapping("/categorie/add")
-    public String submitCategorie(@Valid @ModelAttribute("categorie")  Categorie categorie, BindingResult bindingResult) {
+    public String submitCategorie(@Valid @ModelAttribute("categorie") Categorie categorie, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "categorie_template/categorieForm";
         }
@@ -50,12 +49,12 @@ public class CategorieController {
 
     @GetMapping("/categorie/edit/{id}")
     public String editCategorie(@PathVariable("id") int categorieId, Model model) {
-        model.addAttribute("categorie", categorieService.getCategorie(categorieId));
+        model.addAttribute("categorie", categorieService.getCategorie(categorieId).orElseThrow(() -> new IllegalArgumentException("Invalid categorie Id:" + categorieId)));
         return "categorie_template/categorieForm";
     }
 
     @PostMapping("/categorie/edit/{id}")
-    public String updateCategorie(@Valid @ModelAttribute("categorie")  Categorie categorie, BindingResult bindingResult) {
+    public String updateCategorie(@Valid @ModelAttribute("categorie") Categorie categorie, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "categorie_template/categorieForm";
         }

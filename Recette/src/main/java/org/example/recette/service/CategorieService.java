@@ -6,9 +6,10 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
-public class CategorieService {
+public class CategorieService implements ICategorieService {
     private final Map<Integer, Categorie> categories;
 
     public CategorieService() {
@@ -38,26 +39,28 @@ public class CategorieService {
         categories.put(categorie3.getCategorieId(), categorie3);
     }
 
-    public List<Categorie> getCategories() {
+
+    public List<Categorie> getAllCategories() {
         return List.copyOf(categories.values());
     }
 
-    public Categorie getCategorie(int id) {
-        return categories.values().stream()
-                .filter(c -> c.getCategorieId() == id)
-                .findFirst()
-                .orElse(null);
+
+    public Optional<Categorie> getCategorie(int id) {
+        return Optional.ofNullable(categories.get(id));
 
     }
+
 
     public void addCategorie(Categorie categorie) {
         categorie.setCategorieId(categories.size() + 1);
         categories.put(categorie.getCategorieId(), categorie);
     }
 
+
     public void updateCategorie(Categorie categorie) {
         categories.put(categorie.getCategorieId(), categorie);
     }
+
 
     public void deleteCategorie(int id) {
         categories.remove(id);

@@ -24,8 +24,6 @@ public class Recette {
     @Size(min = 2, max = 50, message = "Nom de la recette doit être entre 2 et 50 caractères")
     private String recetteNom;
 
-    private Enum<Ingredients> ingredientsEnum;
-
    @NotEmpty(message = "Les ingrédients de la recette ne peut pas être vide")
     private List<Ingredients> recetteIngredients;
 
