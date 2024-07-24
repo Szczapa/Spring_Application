@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recettes</title>
+    <span th:replace="~{home :: bootstrapImports}"></span>
+</head>
+<body>
+<div th:replace="~{home :: navBar}"></div>
+<div class="container mt-5">
+    <h1 class="mb-4">Recettes List</h1>
+    <div th:if="${recettes.isEmpty()}">
+        <div class="alert alert-warning" role="alert">
+            Aucune Recette de disponible.
+        </div>
+    </div>
+    <div th:unless="${recettes.isEmpty()}">
+        <table class="table table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Ingredients</th>
+                <th scope="col">Categorie</th>
+                <th scope="col-2">Instructions</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="recette : ${recettes}">
+                <th scope="row" th:text="${recette.recetteId}"></th>
+                <td th:text="${recette.recetteNom}"></td>
+                <td th:text="${recette.recetteIngredients}"></td>
+                <td th:text="${recette.recetteCategorie.getCategorieNom()}"></td>
+                <td th:text="${recette.instructions}"></td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            Options
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" th:href="@{recette/{id}(id=${recette.recetteId})}">Detail</a>
+                            </li>
+                            <li><a class="dropdown-item" th:href="@{recette/edit/{id} (id=${recette.recetteId})}">Modifier</a>
+                            </li>
+                            <li><a class="dropdown-item" th:href="@{recette/delete/{id} (id=${recette.recetteId})}">Supprimer</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Categorie Form</title>
+  <span th:replace="~{home :: bootstrapImports}"></span>
+</head>
+<body>
+<div th:replace="~{home :: navBar}"></div>
+<div class="container mt-5">
+  <h1 class="mb-4">Categorie Form</h1>
+
+  <form method="post"
+        th:action="${categorie.categorieId == 0} ? @{/categorie/add} : @{'/categorie/edit/' + ${categorie.categorieId}}"
+        th:object="${categorie}">
+    <input type="hidden" th:field="*{categorieId}">
+    <div class="mb-3">
+      <label for="categorieNom" class="form-label">Nom de la categorie</label>
+      <input id="categorieNom" class="form-control" th:field="*{categorieNom}" type="text" required>
+      <span th:if="${#fields.hasErrors('categorieNom')}" th:errors="*{categorieNom}"></span>
+    </div>   
+    <div class="mb-3">
+      <label for="categorieDescription" class="form-label">Description</label>
+      <textarea id="categorieDescription" class="form-control" th:field="*{categorieDescription}" required></textarea>
+      <span th:if="${#fields.hasErrors('categorieDescription')}" th:errors="*{categorieDescription}"></span>
+    </div>
+    <button class="btn btn-primary">Submit</button>
+  </form>
+</div>
+</body>
+</html>

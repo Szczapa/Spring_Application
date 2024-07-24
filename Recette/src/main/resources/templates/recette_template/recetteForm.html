@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recette Form</title>
+    <span th:replace="~{home :: bootstrapImports}"></span>
+</head>
+<body>
+<div th:replace="~{home :: navBar}"></div>
+<div class="container mt-5">
+    <h1 class="mb-4">Recette Form</h1>
+
+    <form method="post"
+          th:action="${recette.recetteId == 0} ? @{/recette/add} : @{'/recette/edit/' + ${recette.recetteId}}"
+          th:object="${recette}">
+        <input type="hidden" th:field="*{recetteId}">
+        <div class="mb-3">
+            <label for="recetteNom" class="form-label">Nom de la recette</label>
+            <input id="recetteNom" class="form-control" th:field="*{recetteNom}" type="text" required>
+            <span th:if="${#fields.hasErrors('recetteNom')}" th:errors="*{recetteNom}"></span>
+        </div>
+        <div class="mb-3">
+            <label for="recetteCategorie" class="form-label">Nom de la categorie</label>
+            <select id="recetteCategorie" class="form-select" th:field="*{recetteCategorie.categorieId}">
+                <option th:each="categorie : ${categories}" th:value="${categorie.categorieId}"
+                        th:text="${categorie.categorieNom}">
+            </select>
+            <span th:if="${#fields.hasErrors('recetteCategorie')}" th:errors="*{recetteCategorie}"></span>
+            </label>
+        </div>
+        <div class="mb-3">
+            <label for="recetteIngredients" class="form-label">Ingredients</label>
+            <select id="recetteIngredients" class="form-select" multiple aria-label="multiple select"
+                    th:field="*{recetteIngredients}">
+                <option th:each="ingredient : ${ingredients}"
+                        th:value="${ingredient.name()}"
+                        th:text="${ingredient.name().toLowerCase().replace('_', ' ')}"></option>
+            </select>
+            <span th:if="${#fields.hasErrors('recetteIngredients')}" th:errors="*{recetteIngredients}"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="instructions" class="form-label">Instruction</label>
+            <textarea id="instructions" class="form-control" th:field="*{instructions}" required></textarea>
+            <span th:if="${#fields.hasErrors('instructions')}" th:errors="*{instructions}"></span>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>

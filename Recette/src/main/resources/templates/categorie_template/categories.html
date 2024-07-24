@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+    <span th:replace="~{home :: bootstrapImports}"></span>
+</head>
+<body>
+<div th:replace="~{home :: navBar}"></div>
+<div class="container mt-5">
+    <h1 class="mb-4">Categories List</h1>
+    <div th:if="${categories.isEmpty()}">
+        <div class="alert alert-warning" role="alert">
+            Aucune Categorie de disponible.
+        </div>
+    </div>
+    <div th:unless="${categories.isEmpty()}">
+        <table class="table table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Description</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="categorie : ${categories}">
+                <th scope="row" th:text="${categorie.categorieId}"></th>
+                <td th:text="${categorie.categorieNom}"></td>
+                <td th:text="${categorie.categorieDescription}"></td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            Options
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" th:href="@{categorie/{id}(id=${categorie.categorieId})}">Detail</a>
+                            </li>
+                            <li><a class="dropdown-item" th:href="@{categorie/edit/{id} (id=${categorie.categorieId})}">Modifier</a>
+                            </li>
+                            <li><a class="dropdown-item" th:href="@{categorie/delete/{id} (id=${categorie.categorieId})}">Supprimer</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

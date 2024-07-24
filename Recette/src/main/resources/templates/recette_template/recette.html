@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+    <span th:replace="~{home :: bootstrapImports}"></span>
+</head>
+<body>
+<div th:replace="~{home :: navBar}"></div>
+<div class="container mt-5">
+    <h1 class="mb-4">Recette</h1>
+    <div th:if="${recette == null}">
+        <div class="alert alert-warning" role="alert">
+            Recette not found
+        </div>
+    </div>
+    <div th:if="${recette != null}">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${recette.recetteId} + ' ' + ${recette.recetteNom}
+                +' '+ ${recette.recetteCategorie.getCategorieNom()}"></h5>
+                <p class="card-text" th:text="${recette.recetteIngredients}"></p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
