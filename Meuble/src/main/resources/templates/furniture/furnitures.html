@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Furnitures</title>
+    <th:block th:replace="home :: bootstrapImports"></th:block>
+</head>
+<body>
+<th:block th:replace="home :: navBar"></th:block>
+<div class="container mt-5">
+    <h1 class="mb-4">Furnitures</h1>
+    <a th:href="${'/furniture/add'}" class="btn btn-primary mb-3">Add Furniture</a>
+    <p th:if="${error != null and !error.isEmpty()}" th:text="${error.toLowerCase()}" class="text-danger"></p>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Actions</th>
+            <th>Cart</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="furniture : ${furnitures}">
+            <td th:text="${furniture.id}">Id</td>
+            <td th:text="${furniture.name}">Name</td>
+            <td th:text="${furniture.description}">Description</td>
+            <td th:text="${furniture.price}">Price</td>
+            <td th:text="${furniture.stock}">Stock</td>
+            <td>
+                <a th:href="@{'/furniture/remove?id=' + ${furniture.id}}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+            <td>
+                <form th:if="${furniture.stock > 0}" th:action="@{'/cartItem/add'}" method="post">
+                    <input type="hidden" name="furnitureId" th:value="${furniture.id}"/>
+                    <input type="submit" value="Add To Cart" class="btn btn-success btn-sm"/>
+                </form>
+
+                <form th:if="${furniture.stock == 0}" th:action="@{'/furniture/restock'}" method="post">
+                    <input type="hidden" name="furnitureId" th:value="${furniture.id}"/>
+                    <input type="submit" value="Restock" class="btn btn-danger btn-sm"/>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

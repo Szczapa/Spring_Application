@@ -1,5 +1,8 @@
 package org.example.meuble.dao;
 
-public interface IFurnitureRepository extends  {
+import org.example.meuble.entity.Furniture;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface IFurnitureRepository extends JpaRepository<Furniture, Integer> {
 
 }

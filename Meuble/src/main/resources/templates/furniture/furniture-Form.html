@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter un meuble</title>
+    <span th:replace="home :: bootstrapImports"></span>
+</head>
+<body>
+<span th:replace="home :: navBar"></span>
+<div class="container mt-5">
+    <h2 class="mb-4">Ajouter un meuble</h2>
+    <form method="post" th:action="${'/furniture/add'}" th:object="${furniture}">
+        <input type="hidden" th:field="*{id}">
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" th:field="*{name}" id="name" name="name" class="form-control">
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">Name Error</span>
+        </div>
+
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="text" th:field="*{price}" id="price" name="price" class="form-control">
+            <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger">Price Error</span>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" th:field="*{description}" id="description" name="description" class="form-control">
+            <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger">Description Error</span>
+        </div>
+
+        <div class="mb-3">
+            <label for="stock" class="form-label">Stock</label>
+            <input type="text" th:field="*{stock}" id="stock" name="stock" class="form-control">
+            <span th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}" class="text-danger">Stock Error</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>
