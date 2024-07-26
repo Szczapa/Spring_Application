@@ -29,6 +29,23 @@ public class CartItemController {
         return "cart/cartItems";
     }
 
+//    @PostMapping("/cartItem/add")
+//    public String addCartItem(@RequestParam int furnitureId, Model model) {
+//        Furniture furniture = furnitureService.GetFurnitureById(furnitureId);
+//        if (furniture.getStock() <= 0) {
+//            model.addAttribute("error", "Stock insuffisant pour ajouter cet article au panier.");
+//            return "redirect:/furnitures"; // Or another appropriate view
+//        }
+//        CartItem cartItem = CartItem.builder()
+//                .furniture(furniture)
+//                .quantity(1) // Default quantity, can be modified as needed
+//                .build();
+//        furniture.setStock(furniture.getStock() - 1);
+//        furnitureService.SaveFurniture(furniture);
+//        cartService.addToCart(cartItem);
+//        return "redirect:/cartItems";
+//    }    @PostMapping("/cartItem/add")
+
     @PostMapping("/cartItem/add")
     public String addCartItem(@RequestParam int furnitureId, Model model) {
         Furniture furniture = furnitureService.GetFurnitureById(furnitureId);
@@ -36,14 +53,14 @@ public class CartItemController {
             model.addAttribute("error", "Stock insuffisant pour ajouter cet article au panier.");
             return "redirect:/furnitures"; // Or another appropriate view
         }
-        CartItem cartItem = CartItem.builder()
-                .furniture(furniture)
-                .quantity(1) // Default quantity, can be modified as needed
-                .build();
-        furniture.setStock(furniture.getStock() - 1);
-        furnitureService.SaveFurniture(furniture);
-        cartService.addToCart(cartItem);
-        return "redirect:/cartItems";
+
+        if (cartService.addToCart(furniture) != null) {
+            furniture.setStock(furniture.getStock() - 1);
+            furnitureService.SaveFurniture(furniture);
+            return "redirect:/cartItems";
+        }
+
+        return "redirect:/furnitures";
     }
 
     @GetMapping("/cartItem/remove")

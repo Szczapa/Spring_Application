@@ -2,6 +2,7 @@ package org.example.meuble.service;
 
 import org.example.meuble.dao.ICartItemRepository;
 import org.example.meuble.entity.CartItem;
+import org.example.meuble.entity.Furniture;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,9 +25,25 @@ public class CartService {
                 .orElse(null);
     }
 
-    public void addToCart(CartItem cartItem) {
+    public CartItem addToCart(Furniture furniture) {
+
+        CartItem cardExist = cartItemRepository.findByFurniture_Id(furniture.getId());
+
+
+        if (cardExist != null) {
+            cardExist.setQuantity(cardExist.getQuantity() + 1);
+            cartItemRepository.save(cardExist);
+            return cardExist;
+        }
+        CartItem cartItem = CartItem.builder()
+                .furniture(furniture)
+                .quantity(1)
+                .build();
         cartItemRepository.save(cartItem);
+
+        return  cartItem;
     }
+
 
     public void removeFromCart(CartItem cartItem) {
         cartItemRepository.delete(cartItem);
@@ -36,13 +53,13 @@ public class CartService {
         cartItemRepository.deleteAll();
     }
 
-    public List<CartItem> getCartItemByItemId(int id) {
-        return cartItemRepository.findByFurniture_Id(id) ;
+    public CartItem getCartItemByItemId(int id) {
+        return cartItemRepository.findByFurniture_Id(id);
 
     }
 
     public boolean isFurnitureInCart(int furnitureId) {
-        List<CartItem> cartItems = getCartItemByItemId(furnitureId);
-        return !cartItems.isEmpty();
+        CartItem cartItems = getCartItemByItemId(furnitureId);
+        return cartItems != null;
     }
 }
